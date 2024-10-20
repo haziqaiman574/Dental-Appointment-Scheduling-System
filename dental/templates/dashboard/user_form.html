@@ -1,0 +1,12 @@
+
+{% extends 'dashboard/homepage.html' %}
+
+{% block content %}
+<h2>{% if form.instance.pk %}Update User{% else %}Create User{% endif %}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+<a href="{% url 'user_list' %}">Cancel</a>
+{% endblock %}

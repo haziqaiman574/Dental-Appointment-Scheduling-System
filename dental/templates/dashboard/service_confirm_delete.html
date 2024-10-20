@@ -1,0 +1,13 @@
+{% extends "dashboard/homepage.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Delete Service</h2>
+    <p>Are you sure you want to delete the service "{{ service.service_name }}"?</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'services' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

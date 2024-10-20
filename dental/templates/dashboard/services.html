@@ -1,0 +1,39 @@
+{% extends "dashboard/homepage.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Services Management</h2>
+    <a href="{% url 'service_create' %}" class="btn btn-primary mb-3">Add New Service</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Service ID</th>
+                <th>Service Name</th>
+                <th>Service Type</th>
+                <th>Service Detail</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for service in services %}
+            <tr>
+                <td>{{ service.service_id }}</td>
+                <td>{{ service.service_name }}</td>
+                <td>{{ service.get_service_type_display }}</td>
+                <td>{{ service.service_detail }}</td>
+                
+                {% if user.role != 2 %}
+                <td>
+                    <a href="{% url 'service_update' service.service_id %}" class="btn btn-warning">Edit</a>
+                    <form action="{% url 'service_delete' service.service_id %}" method="POST" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

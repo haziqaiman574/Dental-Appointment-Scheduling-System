@@ -1,0 +1,15 @@
+{% extends "dashboard/homepage.html" %}
+
+{% block content %}
+{% if user.role != 2 %}
+<div class="container mt-5">
+    <h2 class="mb-4">{% if form.instance.pk %}Edit{% else %}Add{% endif %} Service</h2>
+    <form method="POST" class="mb-4">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Save</button>
+    </form>
+    <a href="{% url 'services' %}" class="btn btn-secondary">Back to Services</a>
+</div>
+{% endif %}
+{% endblock %}

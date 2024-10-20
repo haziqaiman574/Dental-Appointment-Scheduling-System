@@ -1,0 +1,40 @@
+{% extends 'dashboard/homepage.html' %}
+
+{% block content %}
+<h2>User Management</h2>
+<a href="{% url 'user_create' %}" class="btn btn-primary mb-3">Create New User</a>
+<table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Identity Card No</th>
+            <th>Username</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Phone No</th>
+            <th>Address</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+        <tr>
+            <td>{{ user.identitycardno }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.fullname }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phone_no }}</td>
+            <td>{{ user.address }}</td>
+            <td>{{ user.get_role_display }}</td>
+            <td>
+                <a href="{% url 'user_update' user.id %}" class="btn btn-sm btn-warning">Edit</a>
+                <form action="{% url 'user_delete' user.id %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this user?');">
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
